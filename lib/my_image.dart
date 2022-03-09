@@ -6,9 +6,18 @@ class MyImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image(
-      image: AssetImage(path),
-      fit: BoxFit.cover,
+    return ElevatedButton(
+      onPressed: pressAction,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.zero,
+        padding: EdgeInsets.zero,
+      ),
+      child: Image(
+        image: AssetImage(path),
+        fit: BoxFit.cover,
+        height: 500,
+        width: 500,
+      ),
     );
   }
 

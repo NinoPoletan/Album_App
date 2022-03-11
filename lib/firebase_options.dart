@@ -60,7 +60,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '586152874137',
     projectId: 'album-hanasana',
     storageBucket: 'album-hanasana.appspot.com',
-    iosClientId: '586152874137-tq5sucnukd4a1dba52e7q9r2dbdbd1te.apps.googleusercontent.com',
+    iosClientId:
+        '586152874137-tq5sucnukd4a1dba52e7q9r2dbdbd1te.apps.googleusercontent.com',
     iosBundleId: 'com.hs.album',
   );
 }

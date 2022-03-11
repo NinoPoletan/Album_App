@@ -1,15 +1,23 @@
+import 'package:album_app/routes/camera_view.dart';
 import 'package:flutter/material.dart';
-import './stream_photos.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'routes/collection_view.dart';
+import 'routes/camera_view.dart';
+import 'routes/profile_view.dart';
+import 'routes/blank_view.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
+
+  runApp(MyApp(camera: firstCamera));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final camera;
+  const MyApp({Key? key, required this.camera}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,33 +27,52 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Foto Album'),
+      home: HomeView(),
+      routes: {
+        '/login/': (context) => const BlankView(),
+        '/register/': (context) => const BlankView(),
+        '/profile/': (context) => ProfileView(),
+        '/edit_profile/': (context) => const BlankView(),
+        '/colection/': (context) => const CollectionView(),
+        '/home/': (context) => const HomeView(),
+        '/camera/': (context) => CameraView(camera: camera),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class HomeView extends StatefulWidget {
+  const HomeView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeViewState extends State<HomeView> {
   int _bottomNavigationIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Foto Album'),
       ),
-      body: const StreamPhotos(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: dodajFoto,
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.amber.shade500,
+      body: const HomeView(),
+      floatingActionButton: Visibility(
+        visible: _bottomNavigationIndex == 0,
+        child: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: dodajFoto,
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.amber.shade500,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import './my_image.dart';
+import '../widgets/my_image.dart';
 
-class StreamPhotos extends StatelessWidget {
-  const StreamPhotos({Key? key}) : super(key: key);
+class CollectionView extends StatelessWidget {
+  const CollectionView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
